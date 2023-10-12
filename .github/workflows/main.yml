@@ -1,0 +1,40 @@
+name: cicd_test
+
+# on: 
+#   push:
+#     branches: [main]
+
+on: 
+  push:
+    branches:
+      - main
+  
+  pull_request:
+    branches:
+      -main
+
+# 어떤 일을 할건지
+jobs:
+  build:
+    # 운영체제
+    runs-on: ubuntu-latest
+
+    # 아래의 작업을 순서대로 실행
+    steps:
+    - name: checkout
+    # 깃 액션 양식
+    - uses: actions/checkout@v2
+
+    # 라이브러리 install
+    - name: build oreumi test
+      run: python app.py
+
+    # 테스트 코드 실행
+    - name: test123
+      run: python app.py test
+
+    # 배포
+    - name: deploy final stage
+      run: python app.py prod
+
+      
